@@ -2672,9 +2672,27 @@
         //////////////////////////////////8=
 </value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bStopImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bStopImage.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bStopImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
+        dAAAEnQB3mYfeAAAA7FJREFUWEe9V8tPE2EQ33aBUEgpzeoJjyylFMLLokYNGm2wouEdEBVi9GB8pDzC
+        kRhOxhgPxoPRxIMmJv4fxhDDH0AIh91KF+heTDWEEA515tv9lu0y28KCHH6EfN88fjsz38xUyOfzvsNA
+        6xoKpU/FL6tVzffVYGuKoap5Es/WL4wEKZ1iOBCBTCwZUqtbnirljd8Vn7yrCPV5EngHMiD7PNN0I0TZ
+        cqIoAa1rMKAGmucVf8Nv0mEx+BtyaiA2r8UHApRtDlcCENJ2pSyyXGC0LLKqVsZeQ9j7fp25FNm4PiFt
+        3nwo4f94hncoU6AjRpbT0tlOygeCJKDWtA1BOLf2HDcupWvbk7l3X0RK3o7c289iurYjCalYsvTBFtqk
+        5PcRYM6FeiPPvvpdtaplLjv8rKRjJ/TxGRFqYQ5s7JhEdikSBQTSEoSdf7lP/gtfkrDfewHYuIa2TJtb
+        znRYBLT4YMDKOXz5cTjnMEiYkRAjK1pHn1WYFgGsWCYAwLDzczdAAQY3rtw9zZCYLPn+weasZR988XNG
+        INOUDCl+2XhqUHDZgSclc65URL9yg6DzgZKxQx+bEtE2k/fLuUy0J4znjAA2Dm4Mq92u6AYHgfeUjBPs
+        dZg6EJEUnjECSnn0h2Eospp78+lAFe+FwJ+P3yAKZp8An3gmaOeHg1Cd7NlBI3nlVHKDFwII9MF0wCcU
+        fkjAIcINYTejlCh4JhBs6+V66FvAScYPsKVSShS8EgAfMtdD3wKOU36w2ftIopQoeCWQ7X8scT3wPX3i
+        BPSxVJjrGQTsKai7+P9TUGdPQcukswhvU0oUPBdhja0IpXi3AEtH6ISf4UumA/MGfe9rRNgsnEoUvBIA
+        HytMhzci/AO5OKlW3MN1CloxDgbc4UxjS/qdqWMfRtmxlAhb0k8mD8NorSGxN4wQkBv7OJ7l527wMI6n
+        LfuVsQV+bhHQOvsCuCwwIVgecIngd0cF2LpqX0gyrbeq+Z1FgAnCuoRrk0GCrWRHJmE4l430+uRt8BG3
+        3xcQQMA7HQFhvpTuYDr0ezOHX0on5kQW9sKldMQpt48AgpGwr+VQPFjBlCyFdBiqnRcc+xB5G2yOUrIk
+        AQSGyqoJDnjD2Eiwm+FU08enw/poKoz/QxftZU2Gv3MOsOEMux2uBBBaZ381LJAvrCd6GBg/zRY0W8FR
+        KEqAYy2SCMPemILutYgtlHSIwLuK6CLKZsx3XgoHImDH+jn4eQ5DBArsAY5TBphqEOZuvKN03JH3/QP/
+        BQ0Wg5EMFQAAAABJRU5ErkJggg==
+</value>
   </data>
   <data name="String" xml:space="preserve">
     <value>ата = hc.DateMove,</value>
