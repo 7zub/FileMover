@@ -1,6 +1,8 @@
 ﻿using FileMover.model;
 using System;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 using static FileMover.context.EnumContext;
 
 namespace FileMover
@@ -9,13 +11,16 @@ namespace FileMover
     {
         public Response res;
         private RuleItem rule;
+        private ListHistoryContext historyContext;
         private FileSystemWatcher watcher;
-
-        public FileWatcher(RuleItem rule)
+        private Panel dg;
+        public FileWatcher(RuleItem rule, ListHistoryContext historyContext, Panel dg)
         {
             try
             {
                 this.rule = rule;
+                this.historyContext = historyContext;
+                this.dg = dg;
                 FWCheck();        // ФЛК правила (мало ли)
                 FWExecuteRule();  // обрабатываем файлы, что уже были до запуска FW
                 FWInstance();     // реализация FW для правила
@@ -54,7 +59,6 @@ namespace FileMover
             watcher.EnableRaisingEvents = false;
             FWExecuteRule();
             watcher.EnableRaisingEvents = true;
-            //Console.WriteLine("Правило: {0} || Файл: {1}:{2}", rule.DirDest, e.FullPath, e.ChangeType);
         }
 
         public void FWExecuteRule()
@@ -63,26 +67,57 @@ namespace FileMover
 
             for (int i = 0; i < dir.Length; i++)
             {
+                DateTime timeStart = DateTime.Now;
+                int fileSize = (int)new FileInfo(dir[i]).Length;
+                Response res = new Response();
+
                 string p = rule.DirDest + @"\" + Path.GetFileName(dir[i]);
 
                 try
                 {
-                    //if (Path.GetFileNameWithoutExtension(dir[i]) == "ff")
-                    //    throw new Exception("Что за чертивщина!");
-
                     File.Copy(
-                    dir[i],
-                    rule.IfExist == ifEx.rename ? GenNewFName(p) : p,
-                    rule.IfExist == ifEx.rewrite
-                );
+                        dir[i],
+                        rule.IfExist == ifEx.rename ? GenNewFName(p) : p,
+                        rule.IfExist == ifEx.rewrite
+                    );
 
                     if (rule.Operation == op.move)
                         File.Delete(dir[i]);
+
+                    res = new Response()
+                    {
+                        respType = Response.RespType.Success,
+                        Message = "Выполнено"
+                    };
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    res = new Response()
+                    {
+                        respType = Response.RespType.Error,
+                        Message = "Ошибка " + e.Message
+                    };
                     continue;
+                }
+                finally
+                {
+                    historyContext.history.Item.Add(new HistoryItem()
+                    {
+                        Id = historyContext.history.Item.Count > 0 ? historyContext.history.Item.Max(f => f.Id) + 1 : 1,
+                        DateMove = DateTime.Now,
+                        Filename = Path.GetFileName(dir[i]),
+                        DirStart = rule.DirStart,
+                        DirDest = rule.DirDest,
+                        Duration = (int)(DateTime.Now - timeStart).TotalMilliseconds,
+                        FileSize = fileSize,
+                        result = res
+                    });
+                    historyContext.EditHistory();
+                    _ = dg.Invoke((MethodInvoker)delegate
+                    {
+                        //dg.GridHistory.DataSource = historyContext.history.Item.ToList();
+                        dg.GridRefresh();
+                    });
                 }
             }
         }

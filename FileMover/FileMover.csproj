@@ -61,7 +61,7 @@
     <ManifestKeyFile>FileMover_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -70,9 +70,12 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Compile Include="Const.cs" />
+    <Compile Include="context\Base.cs" />
     <Compile Include="context\EnumContext.cs" />
+    <Compile Include="context\ListHistoryContext.cs" />
     <Compile Include="context\ListRulesContext.cs" />
     <Compile Include="FileWatcher.cs" />
     <Compile Include="form\RulesEdit.cs">
@@ -166,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\bStopImage.bmp" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

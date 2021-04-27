@@ -30,8 +30,9 @@ namespace FileMover
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Panel));
-            this.GridHsitory = new System.Windows.Forms.DataGridView();
+            this.GridHistory = new System.Windows.Forms.DataGridView();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.правилаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,24 +45,40 @@ namespace FileMover
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonStart = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.GridHsitory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridHistory)).BeginInit();
             this.menu.SuspendLayout();
             this.contextMenuNotify.SuspendLayout();
             this.SuspendLayout();
             // 
-            // GridHsitory
+            // GridHistory
             // 
-            this.GridHsitory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.GridHistory.AllowUserToAddRows = false;
+            this.GridHistory.AllowUserToDeleteRows = false;
+            this.GridHistory.AllowUserToResizeRows = false;
+            this.GridHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.GridHsitory.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.GridHsitory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GridHsitory.Location = new System.Drawing.Point(12, 102);
-            this.GridHsitory.Name = "GridHsitory";
-            this.GridHsitory.RowHeadersWidth = 51;
-            this.GridHsitory.RowTemplate.Height = 24;
-            this.GridHsitory.Size = new System.Drawing.Size(782, 336);
-            this.GridHsitory.TabIndex = 0;
+            this.GridHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.GridHistory.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.GridHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.GridHistory.DefaultCellStyle = dataGridViewCellStyle1;
+            this.GridHistory.Location = new System.Drawing.Point(12, 102);
+            this.GridHistory.MultiSelect = false;
+            this.GridHistory.Name = "GridHistory";
+            this.GridHistory.ReadOnly = true;
+            this.GridHistory.RowHeadersVisible = false;
+            this.GridHistory.RowHeadersWidth = 51;
+            this.GridHistory.RowTemplate.Height = 24;
+            this.GridHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.GridHistory.Size = new System.Drawing.Size(782, 336);
+            this.GridHistory.TabIndex = 0;
             // 
             // menu
             // 
@@ -138,7 +155,7 @@ namespace FileMover
             // 
             this.настройкиToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("настройкиToolStripMenuItem1.Image")));
             this.настройкиToolStripMenuItem1.Name = "настройкиToolStripMenuItem1";
-            this.настройкиToolStripMenuItem1.Size = new System.Drawing.Size(214, 26);
+            this.настройкиToolStripMenuItem1.Size = new System.Drawing.Size(177, 26);
             this.настройкиToolStripMenuItem1.Text = "Настройки";
             this.настройкиToolStripMenuItem1.Click += new System.EventHandler(this.настройкиToolStripMenuItem1_Click);
             // 
@@ -146,7 +163,7 @@ namespace FileMover
             // 
             this.оПрограммеToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("оПрограммеToolStripMenuItem.Image")));
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
@@ -154,7 +171,7 @@ namespace FileMover
             // 
             this.выходToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("выходToolStripMenuItem1.Image")));
             this.выходToolStripMenuItem1.Name = "выходToolStripMenuItem1";
-            this.выходToolStripMenuItem1.Size = new System.Drawing.Size(214, 26);
+            this.выходToolStripMenuItem1.Size = new System.Drawing.Size(177, 26);
             this.выходToolStripMenuItem1.Text = "Выход";
             this.выходToolStripMenuItem1.Click += new System.EventHandler(this.выходToolStripMenuItem1_Click);
             // 
@@ -178,7 +195,7 @@ namespace FileMover
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 450);
             this.Controls.Add(this.buttonStart);
-            this.Controls.Add(this.GridHsitory);
+            this.Controls.Add(this.GridHistory);
             this.Controls.Add(this.menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menu;
@@ -187,7 +204,7 @@ namespace FileMover
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Panel_Load);
             this.Resize += new System.EventHandler(this.Panel_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.GridHsitory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridHistory)).EndInit();
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.contextMenuNotify.ResumeLayout(false);
@@ -198,7 +215,7 @@ namespace FileMover
 
         #endregion
 
-        private System.Windows.Forms.DataGridView GridHsitory;
+        public System.Windows.Forms.DataGridView GridHistory;
         private System.Windows.Forms.MenuStrip menu;
         private System.Windows.Forms.ToolStripMenuItem правилаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;

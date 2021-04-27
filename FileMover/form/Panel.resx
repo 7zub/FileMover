@@ -2672,26 +2672,11 @@
         //////////////////////////////////8=
 </value>
   </data>
-  <data name="buttonStop.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAOxSURBVFhHvVfLTxNhEN92gVBIKc3qCY8spRTCy6JGDRpt
-        sKLhHRAVYvRgfKQ8wpEYTsYYD8aD0cSDJib+H8YQwx9ACIfdShfoXkw1hBAOdebb/ZbtMtvCghx+hHzf
-        PH47M9/MVMjn877DQOsaCqVPxS+rVc331WBriqGqeRLP1i+MBCmdYjgQgUwsGVKrW54q5Y3fFZ+8qwj1
-        eRJ4BzIg+zzTdCNE2XKiKAGtazCgBprnFX/Db9JhMfgbcmogNq/FBwKUbQ5XAhDSdqUsslxgtCyyqlbG
-        XkPY+36duRTZuD4hbd58KOH/eIZ3KFOgI0aW09LZTsoHgiSg1rQNQTi39hw3LqVr25O5d19ESt6O3NvP
-        Yrq2IwmpWLL0wRbapOT3EWDOhXojz776XbWqZS47/KykYyf08RkRamEObOyYRHYpEgUE0hKEnX+5T/4L
-        X5Kw33sB2LiGtkybW850WAS0+GDAyjl8+XE45zBImJEQIytaR59VmBYBrFgmAMCw83M3QAEGN67cPc2Q
-        mCz5/sHmrGUffPFzRiDTlAwpftl4alBw2YEnJXOuVES/coOg84GSsUMfmxLRNpP3y7lMtCeM54wANg5u
-        DKvdrugGB4H3lIwT7HWYOhCRFJ4xAkp59IdhKLKae/PpQBXvhcCfj98gCmafAJ94Jmjnh4NQnezZQSN5
-        5VRygxcCCPTBdMAnFH5IwCHCDWE3o5QoeCYQbOvleuhbwEnGD7ClUkoUvBIAHzLXQ98CjlN+sNn7SKKU
-        KHglkO1/LHE98D194gT0sVSY6xkE7Cmou/j/U1BnT0HLpLMIb1NKFDwXYY2tCKV4twBLR+iEn+FLpgPz
-        Bn3va0TYLJxKFLwSAB8rTIc3IvwDuTipVtzDdQpaMQ4G3OFMY0v6naljH0bZsZQIW9JPJg/DaK0hsTeM
-        EJAb+zie5edu8DCOpy37lbEFfm4R0Dr7ArgsMCFYHnCJ4HdHBdi6al9IMq23qvmdRYAJwrqEa5NBgq1k
-        RyZhOJeN9PrkbfARt98XEEDAOx0BYb6U7mA69Hszh19KJ+ZEFvbCpXTEKbePAIKRsK/lUDxYwZQshXQY
-        qp0XHPsQeRtsjlKyJAEEhsqqCQ54w9hIsJvhVNPHp8P6aCqM/0MX7WVNhr9zDrDhDLsdrgQQWmd/NSyQ
-        L6wnehgYP80WNFvBUShKgGMtkgjD3piC7rWILZR0iMC7iugiymbMd14KByJgx/o5+HkOQwQK7AGOUwaY
-        ahDmbryjdNyR9/0D/wUNFoORDBUAAAAASUVORK5CYII=
-</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="bStopImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bStopImage.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>ата = hc.DateMove,</value>
   </data>
 </root>

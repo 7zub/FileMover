@@ -11,6 +11,7 @@ namespace FileMover
     public partial class Panel : Form
     {
         public ListRulesContext rulesContext;
+        public ListHistoryContext historyContext;
         public Dictionary<int, FileWatcher> DFW = new Dictionary<int, FileWatcher>();
         private ExecFW execFW = ExecFW.enable;
         public Panel()
@@ -23,8 +24,10 @@ namespace FileMover
             try
             {
                 rulesContext = new ListRulesContext();
+                historyContext = new ListHistoryContext();
                 this.Text = rulesContext.frules.Program_name;
                 notifyIcon1.Text = rulesContext.frules.Program_name;
+                GridRefresh();
             }
             catch (Exception ex)
             {
@@ -108,10 +111,10 @@ namespace FileMover
                 {
                     case ExecFW.enable:
                         foreach (RuleItem i in rulesContext.frules.Item.Where(i => i.Status))
-                            DFW.Add(i.Id, new FileWatcher(i));
+                            DFW.Add(i.Id, new FileWatcher(i, historyContext, this));
 
                         execFW = ExecFW.disable;
-                        buttonStart.Image = (Image)resources.GetObject("buttonStop.Image");
+                        buttonStart.Image = (Image)resources.GetObject("bStopImage");
                         buttonStart.Text = "Остановить";
 
                         MessageBox.Show(
@@ -149,6 +152,22 @@ namespace FileMover
         private void настройкиToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             new Settings().ShowDialog();
+        }
+
+        public void GridRefresh()
+        {
+            GridHistory.DataSource
+                = (from hc in historyContext.history.Item
+                select new
+                {
+                    Дата = hc.DateMove,
+                    Файл = hc.Filename,
+                    Поиск = hc.DirStart,
+                    Назначение = hc.DirDest,
+                    Длит = hc.Duration + " мс",
+                    Размер = $"{Math.Round(hc.FileSize / (hc.FileSize >= Math.Pow(1024, 2) ? Math.Pow(1024, 2) : 1024), 2)} {(hc.FileSize >= Math.Pow(1024, 2) ? "МБ" : "КБ")}",
+                    Итог = hc.result.Message
+                }).ToList();
         }
     }
 }
