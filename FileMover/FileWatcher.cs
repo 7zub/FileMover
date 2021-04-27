@@ -72,12 +72,13 @@ namespace FileMover
                 Response res = new Response();
 
                 string p = rule.DirDest + @"\" + Path.GetFileName(dir[i]);
+                string gen = GenNewFName(p);
 
                 try
                 {
                     File.Copy(
                         dir[i],
-                        rule.IfExist == ifEx.rename ? GenNewFName(p) : p,
+                        rule.IfExist == ifEx.rename ? gen : p,
                         rule.IfExist == ifEx.rewrite
                     );
 
@@ -106,8 +107,8 @@ namespace FileMover
                         Id = historyContext.history.Item.Count > 0 ? historyContext.history.Item.Max(f => f.Id) + 1 : 1,
                         DateMove = DateTime.Now,
                         Filename = Path.GetFileName(dir[i]),
-                        DirStart = rule.DirStart,
-                        DirDest = rule.DirDest,
+                        DirStart = rule.DirStart + @"\" + Path.GetFileName(dir[i]),
+                        DirDest = rule.DirDest + @"\" + Path.GetFileName(gen),
                         Duration = (int)(DateTime.Now - timeStart).TotalMilliseconds,
                         FileSize = fileSize,
                         result = res
@@ -115,7 +116,6 @@ namespace FileMover
                     historyContext.EditHistory();
                     _ = dg.Invoke((MethodInvoker)delegate
                     {
-                        //dg.GridHistory.DataSource = historyContext.history.Item.ToList();
                         dg.GridRefresh();
                     });
                 }
