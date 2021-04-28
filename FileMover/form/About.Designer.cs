@@ -41,16 +41,18 @@ namespace FileMover
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBox1.Location = new System.Drawing.Point(17, 54);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(573, 317);
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(573, 167);
             this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 386);
+            this.label1.Location = new System.Drawing.Point(14, 224);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(211, 17);
             this.label1.TabIndex = 1;
@@ -68,7 +70,7 @@ namespace FileMover
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 415);
+            this.label2.Location = new System.Drawing.Point(14, 253);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(193, 17);
             this.label2.TabIndex = 3;
@@ -77,7 +79,7 @@ namespace FileMover
             // linkGit
             // 
             this.linkGit.AutoSize = true;
-            this.linkGit.Location = new System.Drawing.Point(231, 386);
+            this.linkGit.Location = new System.Drawing.Point(231, 224);
             this.linkGit.Name = "linkGit";
             this.linkGit.Size = new System.Drawing.Size(52, 17);
             this.linkGit.TabIndex = 4;
@@ -88,7 +90,7 @@ namespace FileMover
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(285, 386);
+            this.label3.Location = new System.Drawing.Point(285, 224);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(11, 17);
             this.label3.TabIndex = 5;
@@ -97,7 +99,7 @@ namespace FileMover
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(301, 386);
+            this.linkLabel1.Location = new System.Drawing.Point(301, 224);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(70, 17);
             this.linkLabel1.TabIndex = 6;
@@ -109,7 +111,7 @@ namespace FileMover
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(606, 443);
+            this.ClientSize = new System.Drawing.Size(606, 282);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.linkGit);

@@ -9,11 +9,11 @@ namespace FileMover
     {
         private ListRulesContext rulesContext;
 
-        public Rules(ListRulesContext rulesContext)
+        public Rules(ListRulesContext rulesContext, ListSettingsContext sc)
         {
             InitializeComponent();
             this.rulesContext = rulesContext;
-            this.Text = rulesContext.frules.Program_name + ": " + this.Text;
+            this.Text = sc.settings.Program_name + ": " + this.Text;
         }
 
         private void Rules_Load(object sender, EventArgs e)

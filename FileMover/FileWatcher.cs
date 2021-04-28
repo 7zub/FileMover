@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using static FileMover.context.EnumContext;
 
@@ -13,13 +14,16 @@ namespace FileMover
         private RuleItem rule;
         private ListHistoryContext historyContext;
         private FileSystemWatcher watcher;
+        private ListSettingsContext settingsContext;
         private Panel dg;
-        public FileWatcher(RuleItem rule, ListHistoryContext historyContext, Panel dg)
+
+        public FileWatcher(RuleItem rule, ListHistoryContext historyContext, Panel dg, ListSettingsContext settingsContext)
         {
             try
             {
                 this.rule = rule;
                 this.historyContext = historyContext;
+                this.settingsContext = settingsContext;
                 this.dg = dg;
                 FWCheck();        // ФЛК правила (мало ли)
                 FWExecuteRule();  // обрабатываем файлы, что уже были до запуска FW
@@ -119,6 +123,24 @@ namespace FileMover
                         dg.GridRefresh();
                     });
                 }
+            }
+
+            CheckDir();
+            if (historyContext.history.Item.Count > settingsContext.settings.MaxCountHistory)
+            {
+                historyContext.history.Item.RemoveAll(x => x.DateMove < settingsContext.settings.LastClearHistory);
+                historyContext.EditHistory();
+                settingsContext.settings.LastClearHistory = DateTime.Now;
+                settingsContext.EditSettings();
+            }
+        }
+
+        private void CheckDir()
+        {
+            while (Directory.GetFiles(rule.DirStart, rule.FileMask).Length > 0)
+            {
+                Thread.Sleep(16000);
+                FWExecuteRule();
             }
         }
 

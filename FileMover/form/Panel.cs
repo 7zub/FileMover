@@ -12,8 +12,10 @@ namespace FileMover
     {
         public ListRulesContext rulesContext;
         public ListHistoryContext historyContext;
+        public ListSettingsContext settingsContext;
         public Dictionary<int, FileWatcher> DFW = new Dictionary<int, FileWatcher>();
         private ExecFW execFW = ExecFW.enable;
+        
         public Panel()
         {
             InitializeComponent();
@@ -25,8 +27,9 @@ namespace FileMover
             {
                 rulesContext = new ListRulesContext();
                 historyContext = new ListHistoryContext();
-                this.Text = rulesContext.frules.Program_name;
-                notifyIcon1.Text = rulesContext.frules.Program_name;
+                settingsContext = new ListSettingsContext();
+                this.Text = settingsContext.settings.Program_name;
+                notifyIcon1.Text = settingsContext.settings.Program_name;
                 GridRefresh();
             }
             catch (Exception ex)
@@ -40,7 +43,7 @@ namespace FileMover
         {
             if (execFW == ExecFW.disable)
                 buttonStart.PerformClick();
-            new Rules(rulesContext).ShowDialog();
+            new Rules(rulesContext, settingsContext).ShowDialog();
         }
 
         private void Panel_Resize(object sender, EventArgs e)
@@ -50,7 +53,7 @@ namespace FileMover
                 this.Hide();
                 notifyIcon1.Visible = true;
                 notifyIcon1.ContextMenuStrip = contextMenuNotify;
-                notifyIcon1.BalloonTipTitle = rulesContext.frules.Program_name;
+                notifyIcon1.BalloonTipTitle = settingsContext.settings.Program_name;
                 notifyIcon1.BalloonTipText = "Программа работает в фоновом режиме";
                 notifyIcon1.ShowBalloonTip(4000);
             }
@@ -83,7 +86,7 @@ namespace FileMover
         private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Application.OpenForms["Settings"] == null)
-                new Settings().ShowDialog();
+                new Settings(settingsContext).ShowDialog();
             else
                 Application.OpenForms["Settings"].Focus();
         }
@@ -110,12 +113,12 @@ namespace FileMover
                 switch (execFW)
                 {
                     case ExecFW.enable:
-                        foreach (RuleItem i in rulesContext.frules.Item.Where(i => i.Status))
-                            DFW.Add(i.Id, new FileWatcher(i, historyContext, this));
-
                         execFW = ExecFW.disable;
                         buttonStart.Image = (Image)resources.GetObject("bStopImage");
                         buttonStart.Text = "Остановить";
+
+                        foreach (RuleItem i in rulesContext.frules.Item.Where(i => i.Status))
+                            DFW.Add(i.Id, new FileWatcher(i, historyContext, this, settingsContext));
 
                         MessageBox.Show(
                             String.Join("\n", DFW.Select(i => i.Value.res.Message)),
@@ -126,15 +129,15 @@ namespace FileMover
                         break;
 
                     case ExecFW.disable:
+                        execFW = ExecFW.enable;
+                        buttonStart.Image = (Image)resources.GetObject("buttonStart.Image");
+                        buttonStart.Text = "Запустить";
+
                         foreach (RuleItem i in rulesContext.frules.Item.Where(i => i.Status))
                         {
                             DFW[i.Id].Dispose();
                             DFW.Remove(i.Id);
                         }
-
-                        execFW = ExecFW.enable;
-                        buttonStart.Image = (Image)resources.GetObject("buttonStart.Image");
-                        buttonStart.Text = "Запустить";
                         break;
                 }
             }
@@ -151,7 +154,7 @@ namespace FileMover
 
         private void настройкиToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            new Settings().ShowDialog();
+            new Settings(settingsContext).ShowDialog();
         }
 
         public void GridRefresh()
@@ -167,7 +170,41 @@ namespace FileMover
                     Длит = hc.Duration + " мс",
                     Размер = $"{Math.Round(hc.FileSize / (hc.FileSize >= Math.Pow(1024, 2) ? Math.Pow(1024, 2) : 1024), 2)} {(hc.FileSize >= Math.Pow(1024, 2) ? "МБ" : "КБ")}",
                     Итог = hc.result.Message
-                }).ToList();
+                }).Reverse().ToList();
+
+            for (int i = 0; i < GridHistory.Columns.Count - 3; i++)
+            {
+                GridHistory.Columns[i].Width = settingsContext.settings.WidthColHistory[i];
+            }
+        }
+
+        private void buttonClearLog_Click(object sender, EventArgs e)
+        {
+            historyContext.history.Item.Clear();
+            historyContext.EditHistory();
+            GridRefresh();
+        }
+
+        private void Panel_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (execFW == ExecFW.disable)
+            {
+                var f = MessageBox.Show(
+                    "Закрыть программу? Мониторинг папок будет остановлен.\n" +
+                    "Если хотите продолжить мониторинг сверните программу в трей.",
+                    "Предупреждение",
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Warning
+                );
+
+                if (f == DialogResult.Cancel)
+                    e.Cancel = true;
+            }
+        }
+
+        private void Panel_Activated(object sender, EventArgs e)
+        {
+            this.Text = settingsContext.settings.Program_name;
         }
     }
 }

@@ -19,7 +19,6 @@ namespace FileMover
         {
             InitializeComponent();
             this.rulesContext = rulesContext;
-            this.Text = rulesContext.frules.Program_name + ": " + this.Text;
 
             this.cv = cv;
             this.Id = Id;

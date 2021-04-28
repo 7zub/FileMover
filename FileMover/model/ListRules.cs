@@ -8,7 +8,6 @@ namespace FileMover
     public class FRules
     {
         [JsonRequired] public DateTime Date_change { get; set; }
-        [JsonRequired] public string Program_name { get; set; }
         [JsonRequired] public string Creator { get; set; }
         [JsonRequired] public List<RuleItem> Item { get; set; }
     }

@@ -45,6 +45,8 @@ namespace FileMover
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonStart = new System.Windows.Forms.Button();
+            this.buttonClearLog = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GridHistory)).BeginInit();
             this.menu.SuspendLayout();
             this.contextMenuNotify.SuspendLayout();
@@ -77,7 +79,7 @@ namespace FileMover
             this.GridHistory.RowHeadersWidth = 51;
             this.GridHistory.RowTemplate.Height = 24;
             this.GridHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridHistory.Size = new System.Drawing.Size(782, 336);
+            this.GridHistory.Size = new System.Drawing.Size(1018, 294);
             this.GridHistory.TabIndex = 0;
             // 
             // menu
@@ -91,7 +93,7 @@ namespace FileMover
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
             this.menu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menu.Size = new System.Drawing.Size(806, 28);
+            this.menu.Size = new System.Drawing.Size(1042, 28);
             this.menu.TabIndex = 3;
             this.menu.Text = "menu";
             // 
@@ -189,11 +191,34 @@ namespace FileMover
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
+            // buttonClearLog
+            // 
+            this.buttonClearLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClearLog.Location = new System.Drawing.Point(948, 72);
+            this.buttonClearLog.Name = "buttonClearLog";
+            this.buttonClearLog.Size = new System.Drawing.Size(82, 24);
+            this.buttonClearLog.TabIndex = 5;
+            this.buttonClearLog.Text = "Очистить";
+            this.buttonClearLog.UseVisualStyleBackColor = true;
+            this.buttonClearLog.Click += new System.EventHandler(this.buttonClearLog_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(874, 76);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "История:";
+            // 
             // Panel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(806, 450);
+            this.ClientSize = new System.Drawing.Size(1042, 408);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonClearLog);
             this.Controls.Add(this.buttonStart);
             this.Controls.Add(this.GridHistory);
             this.Controls.Add(this.menu);
@@ -202,6 +227,8 @@ namespace FileMover
             this.MinimumSize = new System.Drawing.Size(500, 280);
             this.Name = "Panel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Activated += new System.EventHandler(this.Panel_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Panel_FormClosing);
             this.Load += new System.EventHandler(this.Panel_Load);
             this.Resize += new System.EventHandler(this.Panel_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.GridHistory)).EndInit();
@@ -228,6 +255,8 @@ namespace FileMover
         private System.Windows.Forms.ToolStripMenuItem программеToolStripMenuItem;
         private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem1;
+        private System.Windows.Forms.Button buttonClearLog;
+        private System.Windows.Forms.Label label1;
     }
 }
 
