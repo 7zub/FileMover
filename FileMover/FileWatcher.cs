@@ -44,7 +44,6 @@ namespace FileMover
 
         private void FWCheck()
         {
-
         }
 
         public void FWInstance()
