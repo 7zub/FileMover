@@ -2,10 +2,9 @@
 {
     class Const
     {
-        public const string FileRules = "ListRules.json";
-        public static string FileHistory = "ListHistory.json";
-        public static string FileSettings = "ListSettings.json";
-
+        public const string FileRules = "Rules.json";
+        public static string FileHistory = "History.json";
+        public static string FileSettings = "Settings.json";
 
         public static string DefaultProgramName = "Перемещатор файлов";
         public static string RenameFile = "_copy";

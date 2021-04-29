@@ -17,7 +17,7 @@ namespace FileMover
                 RenameFile = Const.RenameFile,
                 MaxCountHistory = Const.MaxCountHistory,
                 LastClearHistory = DateTime.Now,
-                WidthColHistory = new List<int> { 110,120,270,270,70,70,80 }
+                WidthColHistory = new List<int> { 110, 120, 270, 270, 70, 70, 80 }
             };
 
             settings = JsonLoad(settings, Const.FileSettings);

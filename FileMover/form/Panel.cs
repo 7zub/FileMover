@@ -106,6 +106,17 @@ namespace FileMover
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
+            if (rulesContext.frules.Item.Where(i => i.Status).Count() == 0)
+            {
+                MessageBox.Show(
+                    "Отсутствуют активные правила для запуска",
+                    "Сообщение",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                return;
+            }
+
             try
             {
                 ComponentResourceManager resources = new ComponentResourceManager(typeof(Panel));
@@ -172,10 +183,12 @@ namespace FileMover
                     Итог = hc.result.Message
                 }).Reverse().ToList();
 
-            for (int i = 0; i < GridHistory.Columns.Count - 3; i++)
+            for (int i = 0; i < GridHistory.Columns.Count; i++)
             {
                 GridHistory.Columns[i].Width = settingsContext.settings.WidthColHistory[i];
             }
+
+            GridHistory.ColumnWidthChanged += new DataGridViewColumnEventHandler(GridHistory_ColumnWidthChanged);
         }
 
         private void buttonClearLog_Click(object sender, EventArgs e)
@@ -205,6 +218,15 @@ namespace FileMover
         private void Panel_Activated(object sender, EventArgs e)
         {
             this.Text = settingsContext.settings.Program_name;
+        }
+
+        private void GridHistory_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            for (int i = 0; i < GridHistory.Columns.Count; i++)
+            {
+                settingsContext.settings.WidthColHistory[i] = GridHistory.Columns[i].Width;
+                settingsContext.EditSettings();
+            }
         }
     }
 }
