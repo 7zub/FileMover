@@ -140,6 +140,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="bin\Debug\ListHistory.json" />
+    <None Include="bin\Debug\ListRules.json" />
+    <None Include="bin\Debug\ListSettings.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +172,11 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\FileMover.exe" />
+    <Content Include="bin\Debug\FileMover.pdb" />
+    <Content Include="bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml" />
+    <Content Include="bin\Debug\Microsoft.WindowsAPICodePack.xml" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
