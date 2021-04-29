@@ -18,8 +18,7 @@ mono_crash.*
 
 # Build results
 # [Dd]ebug/
-#![Dd]ebug/*.exe
-Properties/
+![Dd]ebug/*.exe
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
