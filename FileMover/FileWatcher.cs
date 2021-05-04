@@ -79,6 +79,15 @@ namespace FileMover
 
                 try
                 {
+                    using (var fs = File.Open(dir[i], FileMode.Open, FileAccess.Read, FileShare.None)) { }
+                }
+                catch (IOException)
+                {
+                    continue;
+                }
+
+                try
+                {
                     File.Copy(
                         dir[i],
                         rule.IfExist == ifEx.rename ? gen : p,
