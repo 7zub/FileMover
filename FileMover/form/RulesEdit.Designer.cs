@@ -181,9 +181,9 @@ namespace FileMover
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(282, 259);
+            this.buttonSave.Location = new System.Drawing.Point(278, 259);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(93, 28);
+            this.buttonSave.Size = new System.Drawing.Size(97, 28);
             this.buttonSave.TabIndex = 14;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;

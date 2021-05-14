@@ -102,7 +102,7 @@ namespace FileMover
             this.buttonStatus.Enabled = false;
             this.buttonStatus.Location = new System.Drawing.Point(225, 31);
             this.buttonStatus.Name = "buttonStatus";
-            this.buttonStatus.Size = new System.Drawing.Size(90, 35);
+            this.buttonStatus.Size = new System.Drawing.Size(101, 35);
             this.buttonStatus.TabIndex = 4;
             this.buttonStatus.Text = "Отключить";
             this.buttonStatus.UseVisualStyleBackColor = true;
@@ -110,7 +110,7 @@ namespace FileMover
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(330, 31);
+            this.buttonDelete.Location = new System.Drawing.Point(341, 31);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(90, 35);
             this.buttonDelete.TabIndex = 5;

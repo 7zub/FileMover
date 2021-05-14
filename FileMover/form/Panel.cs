@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static FileMover.context.EnumContext.ControlRules;
 
@@ -104,7 +105,7 @@ namespace FileMover
             this.Close();
         }
 
-        private void buttonStart_Click(object sender, EventArgs e)
+        private async void buttonStart_Click(object sender, EventArgs e)
         {
             if (rulesContext.frules.Item.Where(i => i.Status).Count() == 0)
             {
@@ -128,8 +129,11 @@ namespace FileMover
                         buttonStart.Image = (Image)resources.GetObject("bStopImage");
                         buttonStart.Text = "Остановить";
 
-                        foreach (RuleItem i in rulesContext.frules.Item.Where(i => i.Status))
-                            DFW.Add(i.Id, new FileWatcher(i, historyContext, this, settingsContext));
+                        await Task.Run(() =>
+                        {
+                            foreach (RuleItem i in rulesContext.frules.Item.Where(i => i.Status))
+                                DFW.Add(i.Id, new FileWatcher(i, historyContext, this, settingsContext));
+                        });
 
                         MessageBox.Show(
                             String.Join("\n", DFW.Select(i => i.Value.res.Message)),
@@ -137,6 +141,13 @@ namespace FileMover
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information
                         );
+
+                        await Task.Run(() =>
+                        {
+                            foreach (var i in DFW)
+                                i.Value.FWExecuteRule();
+                        });
+
                         break;
 
                     case ExecFW.disable:
@@ -157,8 +168,8 @@ namespace FileMover
                 MessageBox.Show(
                     "Ошибка запуска службы\n" + ex.Message,
                     "Ошибка",
-                     MessageBoxButtons.OK,
-                     MessageBoxIcon.Error
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
                 );
             }
         }

@@ -184,7 +184,7 @@ namespace FileMover
             this.buttonStart.Location = new System.Drawing.Point(12, 42);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.buttonStart.Size = new System.Drawing.Size(135, 45);
+            this.buttonStart.Size = new System.Drawing.Size(140, 45);
             this.buttonStart.TabIndex = 4;
             this.buttonStart.Text = "Запустить";
             this.buttonStart.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -194,9 +194,9 @@ namespace FileMover
             // buttonClearLog
             // 
             this.buttonClearLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClearLog.Location = new System.Drawing.Point(948, 72);
+            this.buttonClearLog.Location = new System.Drawing.Point(937, 72);
             this.buttonClearLog.Name = "buttonClearLog";
-            this.buttonClearLog.Size = new System.Drawing.Size(82, 24);
+            this.buttonClearLog.Size = new System.Drawing.Size(93, 24);
             this.buttonClearLog.TabIndex = 5;
             this.buttonClearLog.Text = "Очистить";
             this.buttonClearLog.UseVisualStyleBackColor = true;
@@ -206,7 +206,7 @@ namespace FileMover
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(874, 76);
+            this.label1.Location = new System.Drawing.Point(863, 76);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 17);
             this.label1.TabIndex = 6;
