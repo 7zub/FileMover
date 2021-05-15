@@ -80,21 +80,13 @@ namespace FileMover
 
                 FileAction(f);
             }
-            var r = recheсk.Where(o => o.Value < Const.MaxRecheckFile).ToList();
+
             while (recheсk.Where(o => o.Value < Const.MaxRecheckFile).ToList().Count > 0)
             {
-                Thread.Sleep(2000); //(int)Math.Pow(recheсk, 2) * 1000);
-                FileAction(recheсk.Where(o => o.Value < Const.MaxRecheckFile).First().Key);
+                var s = recheсk.Where(o => o.Value < Const.MaxRecheckFile).First();
+                Thread.Sleep((int)Math.Pow((int)s.Value, 2) * 1000);
+                FileAction(s.Key);
             }
-
-            //if (recheсk[dir[i]] > 0 && recheсk[dir[i]] < 4)
-            //await Task.Run(() => RecheckDir());
-
-            //task = new Task(RecheckDir);
-            //if (task.Status == TaskStatus.Running)
-            //    return;
-            //else
-            //    task.Start();
 
             if (historyContext.history.Item.Count > settingsContext.settings.MaxCountHistory)
             {
