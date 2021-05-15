@@ -6,7 +6,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static FileMover.context.EnumContext;
 
@@ -71,15 +70,31 @@ namespace FileMover
 
         public void FWExecuteRule()
         {
-            string[] dir = Directory.GetFiles(rule.DirStart, rule.FileMask);
-
-            for (int i = 0; i < dir.Length; i++)
+            while (Directory.GetFiles(rule.DirStart, rule.FileMask).Except(recheсk.Keys).ToList().Count > 0)//.Where(o => o < 4).Length > 0)
             {
-                FileAction(dir[i]);
+                string f = new DirectoryInfo(rule.DirStart)
+                    .GetFiles(rule.FileMask, SearchOption.TopDirectoryOnly)
+                    .Where(w => !recheсk.Keys.Contains(w.FullName))
+                    .OrderBy(p => p.CreationTime)
+                    .First().FullName;
+
+                FileAction(f);
+            }
+            var r = recheсk.Where(o => o.Value < Const.MaxRecheckFile).ToList();
+            while (recheсk.Where(o => o.Value < Const.MaxRecheckFile).ToList().Count > 0)
+            {
+                Thread.Sleep(2000); //(int)Math.Pow(recheсk, 2) * 1000);
+                FileAction(recheсk.Where(o => o.Value < Const.MaxRecheckFile).First().Key);
             }
 
             //if (recheсk[dir[i]] > 0 && recheсk[dir[i]] < 4)
             //await Task.Run(() => RecheckDir());
+
+            //task = new Task(RecheckDir);
+            //if (task.Status == TaskStatus.Running)
+            //    return;
+            //else
+            //    task.Start();
 
             if (historyContext.history.Item.Count > settingsContext.settings.MaxCountHistory)
             {
@@ -90,18 +105,10 @@ namespace FileMover
             }
         }
 
-        private void RecheckDir()
-        {
-            //while (Directory.GetFiles(rule.DirStart, rule.FileMask).Length > 0)
-            foreach (var i in recheсk.Where(o => o.Value < 4))
-            {
-                Thread.Sleep(3000); //(int)Math.Pow(recheсk, 2) * 1000);
-                FileAction(i.Key);
-            }
-        }
-
         public void FileAction(string file)
         {
+            if (!File.Exists(file)) return;
+
             DateTime timeStart = DateTime.Now;
             int fileSize = (int)new FileInfo(file).Length;
             Response res = new Response();
@@ -111,11 +118,39 @@ namespace FileMover
 
             try
             {
-                using (var fs = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.None)) { }
+                File.SetAttributes(file, FileAttributes.Normal);
+                using (var fs = File.Open(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None)) { }
             }
-            catch (IOException)
+            catch (Exception e)
             {
-                recheсk[file] = !recheсk.ContainsKey(file) ? 0 : recheсk[file]++;
+                recheсk[file] = !recheсk.ContainsKey(file) ? 1 : recheсk[file].Value + 1;
+
+                if (recheсk[file].Value >= Const.MaxRecheckFile)
+                {
+                    res = new Response()
+                    {
+                        respType = Response.RespType.Error,
+                        Message = "Ошибка!!. " + e.Message
+                    };
+
+                    historyContext.history.Item.Add(new HistoryItem()
+                    {
+                        Id = historyContext.history.Item.Count > 0 ? historyContext.history.Item.Max(f => f.Id) + 1 : 1,
+                        DateMove = DateTime.Now,
+                        Filename = Path.GetFileName(file),
+                        DirStart = rule.DirStart + @"\" + Path.GetFileName(file),
+                        DirDest = rule.DirDest + @"\" + Path.GetFileName(gen),
+                        Duration = (int)(DateTime.Now - timeStart).TotalMilliseconds,
+                        FileSize = fileSize,
+                        result = res
+                    });
+
+                    historyContext.EditHistory();
+                    _ = dg.Invoke((MethodInvoker)delegate
+                    {
+                        dg.GridRefresh();
+                    });
+                }
                 return;
             }
 
@@ -146,7 +181,6 @@ namespace FileMover
                 // так или иначе удаляем файл
                 if (rule.Operation == op.move)
                 {
-                    File.SetAttributes(file, FileAttributes.Normal);
                     File.Delete(file);
                 }
             }
