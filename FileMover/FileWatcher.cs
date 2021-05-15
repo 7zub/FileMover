@@ -84,8 +84,14 @@ namespace FileMover
             while (recheсk.Where(o => o.Value < Const.MaxRecheckFile).ToList().Count > 0)
             {
                 var s = recheсk.Where(o => o.Value < Const.MaxRecheckFile).First();
-                Thread.Sleep((int)Math.Pow((int)s.Value, 2) * 1000);
-                FileAction(s.Key);
+
+                if (!File.Exists(s.Key))
+                    recheсk.Remove(s.Key);
+                else
+                {
+                    Thread.Sleep((int)Math.Pow((int)s.Value, 3) * 1000);
+                    FileAction(s.Key);
+                }               
             }
 
             if (historyContext.history.Item.Count > settingsContext.settings.MaxCountHistory)
@@ -95,12 +101,12 @@ namespace FileMover
                 settingsContext.settings.LastClearHistory = DateTime.Now;
                 settingsContext.EditSettings();
             }
+
+            var eeee = watcher.EnableRaisingEvents;
         }
 
         public void FileAction(string file)
         {
-            if (!File.Exists(file)) return;
-
             DateTime timeStart = DateTime.Now;
             int fileSize = (int)new FileInfo(file).Length;
             Response res = new Response();
@@ -122,7 +128,7 @@ namespace FileMover
                     res = new Response()
                     {
                         respType = Response.RespType.Error,
-                        Message = "Ошибка!!. " + e.Message
+                        Message = "Ошибка. " + e.Message
                     };
 
                     historyContext.history.Item.Add(new HistoryItem()
@@ -148,7 +154,7 @@ namespace FileMover
 
             try
             {
-                if (File.Exists(p) && GetHashString(File.ReadAllText(p)) == GetHashString(File.ReadAllText(file)))
+                if (File.Exists(p) && GetHashString(p) == GetHashString(file))
                 {
                     res = new Response()
                     {
@@ -218,19 +224,13 @@ namespace FileMover
             return GenName;
         }
 
-        private Guid GetHashString(string s)
+        private string GetHashString(string s)
         {
-            //переводим строку в байт-массим  
-            byte[] bytes = Encoding.Unicode.GetBytes(s);
-            //создаем объект для получения средст шифрования  
-            MD5CryptoServiceProvider CSP = new MD5CryptoServiceProvider();
-            //вычисляем хеш-представление в байтах  
-            byte[] byteHash = CSP.ComputeHash(bytes);
-            string hash = string.Empty;
-            //формируем одну цельную строку из массива  
-            foreach (byte b in byteHash)
-                hash += string.Format("{0:x2}", b);
-            return new Guid(hash);
+            using (SHA256 SHA256 = SHA256Managed.Create())
+            {
+                using (FileStream fileStream = File.OpenRead(s))
+                    return Convert.ToBase64String(SHA256.ComputeHash(fileStream));
+            }
         }
 
         public void Dispose()
