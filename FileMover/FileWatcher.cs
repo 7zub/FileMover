@@ -85,11 +85,12 @@ namespace FileMover
             {
                 var s = recheсk.Where(o => o.Value < Const.MaxRecheckFile).First();
 
+                Thread.Sleep((int)Math.Pow((int)s.Value, 3) * 1000);
+
                 if (!File.Exists(s.Key))
                     recheсk.Remove(s.Key);
                 else
                 {
-                    Thread.Sleep((int)Math.Pow((int)s.Value, 3) * 1000);
                     FileAction(s.Key);
                 }               
             }
@@ -101,8 +102,6 @@ namespace FileMover
                 settingsContext.settings.LastClearHistory = DateTime.Now;
                 settingsContext.EditSettings();
             }
-
-            var eeee = watcher.EnableRaisingEvents;
         }
 
         public void FileAction(string file)
