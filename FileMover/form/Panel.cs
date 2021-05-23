@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static FileMover.context.EnumContext.ControlRules;
@@ -14,7 +15,7 @@ namespace FileMover
         public ListRulesContext rulesContext;
         public ListHistoryContext historyContext;
         public ListSettingsContext settingsContext;
-        public Dictionary<int, FileWatcher> DFW = new Dictionary<int, FileWatcher>();
+        public Dictionary<int, FileWatcher> DFW;
         private ExecFW execFW = ExecFW.enable;
         
         public Panel()
@@ -105,7 +106,7 @@ namespace FileMover
             this.Close();
         }
 
-        private async void buttonStart_Click(object sender, EventArgs e)
+        private void buttonStart_Click(object sender, EventArgs e)
         {
             if (rulesContext.frules.Item.Where(i => i.Status).Count() == 0)
             {
@@ -128,24 +129,22 @@ namespace FileMover
                         execFW = ExecFW.disable;
                         buttonStart.Image = (Image)resources.GetObject("bStopImage");
                         buttonStart.Text = "Остановить";
+                        DFW = new Dictionary<int, FileWatcher>();
 
-                        await Task.Run(() =>
+                        Task.Factory.StartNew(() =>
                         {
                             foreach (RuleItem i in rulesContext.frules.Item.Where(i => i.Status))
                                 DFW.Add(i.Id, new FileWatcher(i, historyContext, this, settingsContext));
-                        });
 
-                        MessageBox.Show(
-                            String.Join("\n", DFW.Select(i => i.Value.res.Message)),
-                            "Сообщение",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information
-                        );
-
-                        await Task.Run(() =>
-                        {
                             foreach (var i in DFW)
                                 i.Value.FWExecuteRule();
+
+                            MessageBox.Show(
+                                String.Join("\n", DFW.Select(i => i.Value.res.Message)),
+                                "Сообщение",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
                         });
 
                         break;
@@ -160,6 +159,7 @@ namespace FileMover
                             DFW[i.Id].Dispose();
                             DFW.Remove(i.Id);
                         }
+
                         break;
                 }
             }
